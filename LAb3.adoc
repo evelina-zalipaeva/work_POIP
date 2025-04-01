@@ -1,0 +1,155 @@
+:diagram-use-plantuml:
+:author: Залипаева Эвелина КЭ-201
+:icon: front
+:secttrue: true
+:toc: left
+:toclevels: 2
+:secttruelevels: 2
+:sectnums: |,all|
+:stylesheet: custom.css
+:stylesdir: ./styles
+:imagesdir: pic
+:toc:
+:toc-title: Оглавление
+:figure-caption: Рисунок
+:table-caption: Таблица
+= Отчёт
+
+[plantuml, format=png, align=center]
+----
+@startuml
+skinparam style strictuml
+
+interface IMode {
+  void init()
+  void Execute()
+}
+
+class ChessMode {
+  - [ ] Mode(led[]: LedToggleable)
+  + [x] void Execute()
+}
+
+class TreeMode {
+  - [ ] Mode(led[]: LedToggleable)
+  + [x] void Execute()
+}
+
+interface LedToggleable {
+  - [ ] void Toggle()
+}
+
+class Led {
+  - [ ] Led(address: int, pinNumber: int)
+  + [x] void Toggle()
+}
+
+IMode <|-- ChessMode
+IMode <|-- TreeMode
+LedToggleable <|.. Led
+ChessMode "1" *-- "0..*" LedToggleable
+TreeMode "1" *-- "0..*" LedToggleable
+
+@enduml
+----
+== Что я узнала 
+PlantUML — это инструмент для создания диаграмм на основе текстового описания. Он позволяет быстро и удобно визуализировать структуру программ, процессов или данных без ручного рисования в графических редакторах.
+
+Основные возможности PlantUML
+=== Диаграммы классов 
+
+Показывает структуру ООП-кода: классы, интерфейсы, наследование, ассоциации.
+
+Пример:
+[plantuml, format=png, align="center"]
+----
+@startuml
+
+class Car {
+  -String model
+  +void start()
+}
+
+@enduml
+----
+
+=== Диаграммы последовательностей
+
+Визуализирует взаимодействие между объектами во времени.
+
+Пример:
+[plantuml, format=png, align="center"]
+----
+@startuml
+
+User -> Server : Запрос данных
+Server --> User : Ответ
+
+@enduml
+----
+=== Use Case-диаграммы
+
+Описывает функциональные требования системы.
+
+Пример:
+[plantuml, format=png, align="center"]
+----
+@startuml
+
+actor Пользователь
+usecase "Авторизация" as Auth
+Пользователь --> Auth
+
+@enduml
+----
+=== Диаграммы состояний
+
+Показывает изменения состояния объекта.
+
+Пример:
+[plantuml, format=png, align="center"]
+----
+@startuml
+
+[*] --> Включен
+Включен --> Выключен : Нажатие кнопки
+Выключен --> Включен : Нажатие кнопки
+
+@enduml
+----
+=== ER-диаграммы (базы данных)
+
+Отображает сущности и их связи.
+
+Пример:
+[plantuml, format=png, align="center"]
+----
+@startuml
+
+entity User {
+  +id [PK]
+  --
+  name : string
+}
+
+@enduml
+----
+=== Диаграммы развертывания
+
+Показывает инфраструктуру (серверы, контейнеры и т.д.).
+== Почему PlantUML удобен?
+* Текстовый формат
+
+Диаграммы хранятся в виде кода, их легко редактировать и версионировать (Git).
+
+* Автоматизация
+
+Интегрируется с Markdown, LaTeX, Confluence, VS Code и другими инструментами.
+
+* Поддержка многих типов диаграмм
+
+Не только UML, но и блок-схемы, Gantt-диаграммы и даже ASCII-арт.
+
+* Кросс-платформенность
+
+Работает везде, где есть Java (онлайн-редакторы, плагины для IDE).
